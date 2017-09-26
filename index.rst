@@ -1,5 +1,5 @@
 
-Jupman Manual
+Scientific Programming Labs Part 2: Algorithms
 ================================================
 
 (AA 2017/18)
@@ -14,9 +14,9 @@ Jupman Manual
     .. raw:: html
         
 
-        Download: <a href="http://readthedocs.org/projects/jupman/downloads/pdf/latest/" target="_blank">PDF</a>
-                  <a href="http://readthedocs.org/projects/jupman/downloads/epub/latest/" target="_blank"> EPUB </a>
-                  <a href="http://readthedocs.org/projects/jupman/downloads/htmlzip/latest/" target="_blank"> HTML </a>
+        Download: <a href="http://readthedocs.org/projects/sciprolab2/downloads/pdf/latest/" target="_blank">PDF</a>
+                  <a href="http://readthedocs.org/projects/sciprolab2/downloads/epub/latest/" target="_blank"> EPUB </a>
+                  <a href="http://readthedocs.org/projects/sciprolab2/downloads/htmlzip/latest/" target="_blank"> HTML </a>
         <br/>
         TODO: put link to software         
 
@@ -25,8 +25,6 @@ Jupman Manual
     :maxdepth: 2
     :glob:
 
-    usage.md
-    jupman-tests.ipynb
     intro.ipynb
     past-exams/**/exam-*
 

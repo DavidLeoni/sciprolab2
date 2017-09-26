@@ -15,9 +15,9 @@ on_rtd = os.environ.get('READTHEDOCS') == 'True'
 
 ###################   TODO EDIT AS NEEDED !!  ####################
 
-course = "Python Course" 
-degree = "Pythonology Master"
-author = 'Mr Python Guru' 
+course = "Scientific Programming Labs, 2nd part: Algorithms" 
+degree = "Quantitative Computational Biology Master, CIBIO"
+author = 'David Leoni' 
 copyright = '# 2017, ' + author                              
 
 #####    'filename' IS *VERY* IMPORTANT !!!!
@@ -25,7 +25,7 @@ copyright = '# 2017, ' + author
 #####     AND IT SHOULD ALSO BE THE SAME NAME ON READTHEDOCS 
 #####     (like i.e. jupman.readthedocs.org)
 
-filename = 'jupman'   # The filename without the extension
+filename = 'sciprolab2'   # The filename without the extension
 
 #################################################################
 
@@ -40,7 +40,7 @@ SYSTEMS = {
 }
 MANUALS = {
     "student": {
-        "name" : "Jupman",  # TODO put manual name, like "Scientific Programming"
+        "name" : "Scientific Programming Part 2 Labs - Algorithms",  # TODO put manual name, like "Scientific Programming"
         "audience" : "studenti",
         "args" : "",
         "output" : "",

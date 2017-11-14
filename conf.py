@@ -18,7 +18,7 @@ on_rtd = os.environ.get('READTHEDOCS') == 'True'
 course = "Scientific Programming Labs, 2nd part: Algorithms" 
 degree = "Quantitative Computational Biology Master, CIBIO"
 author = 'David Leoni' 
-copyright = '# 2017, ' + author                              
+copyright = '2017, ' + author                              
 
 #####    'filename' IS *VERY* IMPORTANT !!!!
 #####     IT IS PREPENDED IN MANY GENERATED FILES
@@ -40,7 +40,7 @@ SYSTEMS = {
 }
 MANUALS = {
     "student": {
-        "name" : "Scientific Programming Part 2 Labs - Algorithms",  # TODO put manual name, like "Scientific Programming"
+        "name" : "Scientific Programming Algolab",  # TODO put manual name, like "Scientific Programming"
         "audience" : "studenti",
         "args" : "",
         "output" : "",

@@ -1,12 +1,8 @@
 
-Scientific Programming Labs Part 2: Algorithms
+Scientific Programming Algolab
 ================================================
 
 (AA 2017/18)
-
-.. warning:: 
-
-    DRAFT IN PROGRESS 
 
 
 .. only:: html
@@ -18,14 +14,15 @@ Scientific Programming Labs Part 2: Algorithms
                   <a href="http://readthedocs.org/projects/sciprolab2/downloads/epub/latest/" target="_blank"> EPUB </a>
                   <a href="http://readthedocs.org/projects/sciprolab2/downloads/htmlzip/latest/" target="_blank"> HTML </a>
         <br/>
-        TODO: put link to software         
-
+        
 
 .. toctree::
     :maxdepth: 2
     :glob:
 
     intro.ipynb
+    testing.ipynb
+    data-structures-1.ipynb
     past-exams/**/exam-*
 
 

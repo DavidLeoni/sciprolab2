@@ -22,7 +22,8 @@ Scientific Programming Algolab
 
     intro.ipynb
     testing.ipynb
-    data-structures-1.ipynb
+    oop.ipynb
+    lists.ipynb
     past-exams/**/exam-*
 
 

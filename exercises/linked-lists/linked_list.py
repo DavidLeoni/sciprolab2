@@ -1,4 +1,23 @@
 
+class Node:
+    """ A Node of an LinkedList. Holds data provided by the user. """
+    
+    def __init__(self,initdata):
+        self._data = initdata
+        self._next = None
+
+    def get_data(self):
+        return self._data
+
+    def get_next(self):
+        return self._next
+
+    def set_data(self,newdata):
+        self._data = newdata
+
+    def set_next(self,newnext):
+        self._next = newnext
+
 class LinkedList:
     """
         LinkedList

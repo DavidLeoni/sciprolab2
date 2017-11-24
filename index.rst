@@ -24,6 +24,8 @@ Scientific Programming Algolab
     testing.ipynb
     oop.ipynb
     lists.ipynb
+    stacks.ipynb
+    linked-lists.ipynb
     past-exams/**/exam-*
 
 

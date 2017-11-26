@@ -1,6 +1,8 @@
 class Node:
-    """ A Node of an LinkedList. Holds data provided by the user. """
+    """ A Node of an LinkedList. Holds data provided by the user. 
     
+        Node v3 remains the same as Node v2 
+    """
     def __init__(self,initdata):
         self._data = initdata
         self._next = None
@@ -20,7 +22,12 @@ class Node:
 
 class LinkedList:
     """
-        LinkedList v1 - slow basic LinkedList
+        A linked list implementation, v3.
+        
+        Improvements upon LinkedList v2: 
+        
+        * calculates append() in O(1) 
+        * adds last() method to retrieve last element in O(1)
         
         This class is similar to 'UnorderedList' in the book, with these differences:
             - has more pythonic names
@@ -30,6 +37,8 @@ class LinkedList:
         
     def __init__(self):
         self._head = None
+        self._size = 0  
+        self._last = None # NEW attribute '_last'
 
     def to_python(self):
         """ Returns this LinkedList as a regular Python list. This method is very handy for testing.
@@ -41,6 +50,7 @@ class LinkedList:
             python_list.append(current.get_data())
             current = current.get_next()                       
         return python_list        
+        
         
     def __str__(self):
         """ For potentially complex data structures like this one, having a __str__ method is essential to 
@@ -63,18 +73,15 @@ class LinkedList:
         """ Adds item at the beginning of the list """
         new_head = Node(item)
         new_head.set_next(self._head)
+        if self._head == None: # NEW
+            self._last = new_head # NEW
         self._head = new_head
+        self._size += 1 
+        
 
     def size(self):
-        """ Returns the size of the list """
-        current = self._head
-        count = 0
-        
-        while (current != None):
-            current = current.get_next()
-            count += 1
-            
-        return count
+        """ Returns the size of the list in O(1) """
+        return self._size  
 
     def search(self,item):
         """ Returns True if item is present in list, False otherwise        
@@ -98,12 +105,17 @@ class LinkedList:
         prev = None
         
         while (current != None):
+                                                    
             if (current.get_data() == item):
+                if (self._last == current):  # NEW
+                    self._last = prev        # NEW 
+                
                 if prev == None:  # we need to remove the head 
                     self._head = current.get_next()
                 else:  
                     prev.set_next(current.get_next())
-                    current = current.get_next()                    
+                    current = current.get_next()  
+                self._size -= 1  
                 return  # Found, exits the function
             else:
                 prev = current
@@ -112,18 +124,16 @@ class LinkedList:
         raise Exception("Tried to remove a non existing item! Item was: " + str(item))
     
     def append(self, e):
-        """ Appends element e to the end of the list.
-            
-            For this exercise you can write the O(n) version
+        """ Appends element e to the end of the list, in O(1)                        
         """                
         
         if self._head == None:
             self.add(e)
         else:                        
-            current = self._head
-            while (current.get_next() != None):
-                current = current.get_next()
-            current.set_next(Node(e))
+            new_node = Node(e)
+            self._last.set_next(new_node) # NEW, we directly exploit _last pointer 
+            self._last = new_node # NEW, need to update _last
+            self._size += 1  
     
     def insert(self, i, e):
         """ Insert an item at a given position. 
@@ -159,8 +169,10 @@ class LinkedList:
             else:
                 new_node = Node(e)
                 prev.set_next(new_node)
-                new_node.set_next(current)                
-        
+                new_node.set_next(current) 
+                    
+                self._size += 1 
+                
     def index(self, e):
         """ Return the index in the list of the first item whose value is x. 
         
@@ -178,9 +190,7 @@ class LinkedList:
                 count += 1
         
         raise Exception("Couldn't find element " + str(e) )
-        
-
-        
+                
     def pop(self):
         """ Remove the last item of the list, and return it. 
             
@@ -193,14 +203,30 @@ class LinkedList:
             current = self._head
              
             if (current.get_next() == None): # one element list
-                last_item = self._head.get_data()
+                popped = self._head
                 self._head = None
+                self._last = None  # NEW 
             else:    # we have more than one element
                 prev = None            
                 while current.get_next() != None:  # current will reach last element
                     prev = current
                     current = current.get_next()                                                                                            
-                last_item = current.get_data()
+                popped = current
+                self._last = prev   # NEW 
                 prev.set_next(None)                              
-                
-            return last_item
+
+            self._size -= 1  
+            
+            return popped.get_data()
+            
+            
+    def last(self):
+        """ Returns the last element in the list, in O(1). 
+        
+            If list is empty, raises an Exception. Since v2. 
+        """
+        
+        if (self._head == None):
+            raise Exception("Tried to get the last element of an empty list!")
+        else:    
+            return self._last.get_data()

@@ -3,7 +3,7 @@ import unittest
 
         
 class LinkedListTest(unittest.TestCase):
-    """ Test cases for LinkedList v2
+    """ Test cases for LinkedList v3
     
         Test cases are improved by adding a new method myAssert(self, unordered_list, python_list)         
     """    
@@ -14,6 +14,9 @@ class LinkedListTest(unittest.TestCase):
         self.assertEqual(linked_list.to_python(), python_list)
         # we check this new invariant about the size
         self.assertEqual(linked_list.size(), len(python_list)) 
+        # we check this new invariant about the last element        # NEW
+        if len(python_list) != 0:                                   # NEW
+            self.assertEqual(linked_list.last(), python_list[-1])   # NEW
     
 class AddTest(LinkedListTest):
     
@@ -205,3 +208,15 @@ class PopTest(LinkedListTest):
         self.assertEqual('a', y)
         self.myAssert(ul, [])
         
+class TestLast(LinkedListTest):
+    
+    def test_01_last(self):
+        """ This tests only simple cases. More in-depth testing will be provided by calls to myAssert """
+        
+        ul = LinkedList()
+        with self.assertRaises(Exception):
+            ul.last()        
+        ul.add('b')
+        self.assertEqual(ul.last(), 'b')
+        ul.add('a')
+        self.assertEqual(ul.last(), 'b')

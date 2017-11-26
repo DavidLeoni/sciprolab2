@@ -1,6 +1,6 @@
 
 # This is the library to be included in Jupyter notebooks.
-# David Leoni Sept 2017 
+# David Leoni Nov 2017 
 
 import sys
 import unittest
@@ -19,30 +19,33 @@ def get_class(meth):
     return None
 
 
-def run(classOrMethod):    
-    """ Runs test class or method. Doesn't show code nor output in html.
+def run(classOrMethodOrModule):    
+    """ Runs test class or method or Module. Doesn't show code nor output in html.
     
         todo look at test order here: http://stackoverflow.com/a/18499093        
     """ 
     
-    if  inspect.isclass(classOrMethod) and issubclass(classOrMethod, unittest.TestCase):        
-        testcase = classOrMethod
+    if  inspect.isclass(classOrMethodOrModule) and issubclass(classOrMethod, unittest.TestCase):        
+        testcase = classOrMethodOrModule
         suite = unittest.TestLoader().loadTestsFromTestCase(testcase)
-        unittest.TextTestRunner(verbosity=1,stream=sys.stderr).run( suite )
-    elif inspect.ismethod(classOrMethod):
-        meth = classOrMethod
+    elif inspect.ismethod(classOrMethodOrModule):
+        meth = classOrMethodOrModule
         suite = unittest.TestSuite()
         testcase = get_class(meth)
         suite.addTest(testcase(meth.__name__))
-        unittest.TextTestRunner(verbosity=1,stream=sys.stderr).run( suite )
+    elif inspect.ismodule(classOrMethodOrModule):
+        module = classOrMethodOrModule
+        suite = unittest.TestLoader().loadTestsFromModule(module)
     else:
-        raise Exception("Accepted parameters are a TestCase class or a TestCase method. Found instead: " + str(classOrMethod))
+        raise Exception("Accepted parameters are either a TestCase class, a TestCase method or a test module. Found instead: " + str(classOrMethodOrModule))
 
+    unittest.TextTestRunner(verbosity=1,stream=sys.stderr).run( suite )
 
 def show_run(classOrMethod):    
     """ Runs test class or method. Code is not shown, but output is
-    
+
         @since 0.19
+        @deprecated Just use run()
     """    
     run(classOrMethod)
         

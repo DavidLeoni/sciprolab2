@@ -1,7 +1,7 @@
 class Node:
     """ A Node of an LinkedList. Holds data provided by the user. 
     
-        Node v2 remains the same as Node v1 
+        Node v2 remains the same as Node v1
     """
     def __init__(self,initdata):
         self._data = initdata
@@ -26,9 +26,7 @@ class LinkedList:
         
         Improvements upon LinkedList v1: 
         
-        * calculates size() in O(1)
-        * calculates append() in O(1)
-        * adds last() method to retrieve last element in O(1)
+        *  calculates size() in O(1)
         
         This class is similar to 'UnorderedList' in the book, with these differences:
             - has more pythonic names
@@ -39,7 +37,6 @@ class LinkedList:
     def __init__(self):
         self._head = None
         self._size = 0  # NEW attribute '_size'
-        self._last = None # NEW attribute '_last'
 
     def to_python(self):
         """ Returns this LinkedList as a regular Python list. This method is very handy for testing.
@@ -73,9 +70,7 @@ class LinkedList:
     def add(self,item):    
         """ Adds item at the beginning of the list """
         new_head = Node(item)
-        new_head.set_next(self._head)
-        if self._head == None: # NEW
-            self._last = new_head # NEW
+        new_head.set_next(self._head)        
         self._head = new_head
         self._size += 1 # NEW, we just return the field value. This is fast!
         
@@ -107,10 +102,7 @@ class LinkedList:
         
         while (current != None):
                                                     
-            if (current.get_data() == item):
-                if (self._last == current):  # NEW
-                    self._last = prev        # NEW 
-                
+            if (current.get_data() == item):                
                 if prev == None:  # we need to remove the head 
                     self._head = current.get_next()
                 else:  
@@ -131,9 +123,10 @@ class LinkedList:
         if self._head == None:
             self.add(e)
         else:                        
-            new_node = Node(e)
-            self._last.set_next(new_node) # NEW, we directly exploit _last pointer 
-            self._last = new_node # NEW, need to update _last
+            current = self._head
+            while (current.get_next() != None):
+                current = current.get_next()
+            current.set_next(Node(e))            
             self._size += 1  # NEW, need to update _size
     
     def insert(self, i, e):
@@ -206,28 +199,15 @@ class LinkedList:
             if (current.get_next() == None): # one element list
                 popped = self._head
                 self._head = None
-                self._last = None  # NEW 
             else:    # we have more than one element
                 prev = None            
                 while current.get_next() != None:  # current will reach last element
                     prev = current
                     current = current.get_next()                                                                                            
                 popped = current
-                self._last = prev   # NEW 
                 prev.set_next(None)                              
 
             self._size -= 1  # NEW
             
             return popped.get_data()
             
-            
-    def last(self):
-        """ Returns the last element in the list, in O(1). 
-        
-            If list is empty, raises an Exception. Since v2. 
-        """
-        
-        if (self._head == None):
-            raise Exception("Tried to get the last element of an empty list!")
-        else:    
-            return self._last.get_data()

@@ -147,7 +147,6 @@ class ItalianQueue:
                 - if there is, v is inserted after the last element in the same group sequence
                 - otherwise v is inserted at the end of the queue
 
-            - If the queue is full, raises BufferError.
             - Complexity: O(n)
         """
         

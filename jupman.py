@@ -11,13 +11,22 @@ import conf
 from IPython.core.display import HTML
 
 
-# taken from here: http://stackoverflow.com/a/961057
 def get_class(meth):
-    for cls in inspect.getmro(meth.im_class):
-        if meth.__name__ in cls.__dict__: 
-            return cls
-    return None
+    """
+        Taken from here: https://stackoverflow.com/a/25959545
+    """
 
+    if inspect.ismethod(meth):
+        for cls in inspect.getmro(meth.__self__.__class__):
+            if cls.__dict__.get(meth.__name__) is meth:
+                 return cls
+        meth = meth.__func__  # fallback to __qualname__ parsing
+    if inspect.isfunction(meth):
+        cls = getattr(inspect.getmodule(meth),
+                      meth.__qualname__.split('.<locals>', 1)[0].rsplit('.', 1)[0])
+        if isinstance(cls, type):
+            return cls
+    return getattr(meth, '__objclass__', None)  # handle special descriptor objects
 
 def run(classOrMethodOrModule):    
     """ Runs test class or method or Module. Doesn't show code nor output in html.
@@ -25,10 +34,10 @@ def run(classOrMethodOrModule):
         todo look at test order here: http://stackoverflow.com/a/18499093        
     """ 
     
-    if  inspect.isclass(classOrMethodOrModule) and issubclass(classOrMethod, unittest.TestCase):        
+    if  inspect.isclass(classOrMethodOrModule) and issubclass(classOrMethodOrModule, unittest.TestCase):        
         testcase = classOrMethodOrModule
         suite = unittest.TestLoader().loadTestsFromTestCase(testcase)
-    elif inspect.ismethod(classOrMethodOrModule):
+    elif inspect.isfunction(classOrMethodOrModule):
         meth = classOrMethodOrModule
         suite = unittest.TestSuite()
         testcase = get_class(meth)

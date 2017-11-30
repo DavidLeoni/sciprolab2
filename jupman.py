@@ -9,7 +9,7 @@ import os
 import networkx as nx
 import conf
 from IPython.core.display import HTML
-
+import importlib
 
 def get_class(meth):
     """
@@ -27,6 +27,7 @@ def get_class(meth):
         if isinstance(cls, type):
             return cls
     return getattr(meth, '__objclass__', None)  # handle special descriptor objects
+
 
 def run(classOrMethodOrModule):    
     """ Runs test class or method or Module. Doesn't show code nor output in html.
@@ -50,6 +51,18 @@ def run(classOrMethodOrModule):
 
     unittest.TextTestRunner(verbosity=1,stream=sys.stderr).run( suite )
 
+
+def run_solution(module_name):
+    """ Runs all tests for module module_name, using the module solution
+    """
+    #mod = importlib.import_module(module_name) # checks exercise module is well formatted
+
+    mod_sol = importlib.import_module(module_name + '_solution') # load solution module 
+    sys.modules[module_name] = mod_sol                        # renames solution module like exercise module to trick the tests!
+    mod_test  = importlib.import_module(module_name + '_test')
+    run(mod_test)
+        
+    
 def show_run(classOrMethod):    
     """ Runs test class or method. Code is not shown, but output is
 
@@ -58,9 +71,14 @@ def show_run(classOrMethod):
     """    
     run(classOrMethod)
         
-def init(root=''):
+def init(*args, root=''):
     """ To be called at the beginning of Jupyter sheets
+        args: a list of paths to add to sys.path
+        root: TODO add docs !
     """
+    if len(args) > 0:
+        sys.path.extend(args)
+
     on_rtd = os.environ.get('READTHEDOCS') == 'True'
     
     if on_rtd:
@@ -88,18 +106,15 @@ def init(root=''):
         ret += "\n</script>\n"
 
     return  HTML(ret)
-
+    
 def init_exam(exam_date):
     """ To be called at the beginning of Jupyter exam sheets
         
         exam_date : exam date string in the format 'yyyy-mm-dd'
     """
     if exam_date != '_JM_(exam.date)':
-        conf.parse_date(exam_date) # little hack so the template can work somewhat properly
-    import sys
-    sys.path.append('solutions/')
-    sys.path.append('exercises/')
-    return init('../../')
+        conf.parse_date(exam_date) # little hack so the template can work somewhat properly    
+    return init('solutions/', 'exercises/', root='../../')
 
 
 def assertNotNone(ret, function_name):

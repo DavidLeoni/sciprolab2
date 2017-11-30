@@ -28,7 +28,6 @@ def get_class(meth):
             return cls
     return getattr(meth, '__objclass__', None)  # handle special descriptor objects
 
-
 def run(classOrMethodOrModule):    
     """ Runs test class or method or Module. Doesn't show code nor output in html.
     

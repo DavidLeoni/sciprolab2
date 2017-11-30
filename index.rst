@@ -27,6 +27,8 @@ Scientific Programming Algolab
     stacks.ipynb
     linked-lists.ipynb
     queues.ipynb
+    trees.ipynb
+    graphs.ipynb
     past-exams/**/exam-*
 
 

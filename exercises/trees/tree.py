@@ -115,7 +115,10 @@ class GenericTree:
         raise Exception("TODO Implement me !" )
         
     def insert_sibling(self, new_sibling):
-        """ Inserts new_sibling as the immediate next sibling """
+        """ Inserts new_sibling as the *immediate* next sibling.
+            
+            If self is a root, raises an Exception             
+        """
         raise Exception("TODO Implement me !" )
 
     def insert_siblings(self, new_siblings):
@@ -159,7 +162,10 @@ class GenericTree:
         raise Exception("TODO Implement me !" )
             
     def detach(self, data):
-        """ Detaches the first child that holds the provided data   """
+        """ Detaches the first child that holds the provided data.
+        
+            If no such node is found, raises an Exception
+        """
 
         raise Exception("TODO Implement me !" )
         

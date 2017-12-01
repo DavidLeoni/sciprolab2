@@ -122,14 +122,14 @@ class GenericTree:
             self.insert_child(c)        
         
     def insert_sibling(self, new_sibling):
-        """ Inserts new_sibling as the immediate next sibling
+        """ Inserts new_sibling as the *immediate* next sibling.
             
-            If self is a root, raises an Exception
+            If self is a root, raises an Exception.           
         """
         if (self.is_root()):
             raise Exception("Can't add siblings to a root node !!")
             
-        new_sibling.parent = self.parent
+        new_sibling._parent = self._parent
         new_sibling._sibling = self._sibling
         self._sibling = new_sibling
 
@@ -195,7 +195,10 @@ class GenericTree:
             detached._sibling = None
             
     def detach(self, data):
-        """ Detaches the first child that holds the provided data   """
+        """ Detaches the first child that holds the provided data.
+        
+            If no such node is found, raises an Exception
+        """
 
         if (self._child != None):
             current = self._child

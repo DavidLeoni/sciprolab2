@@ -225,7 +225,7 @@ def replace_html(stext, rtext):
         if lineno >0:
             line =line.replace(stext, rtext)
         sys.stdout.write(line)
-
+        
 #  MAIN
 
 manuals=MANUALS.keys()

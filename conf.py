@@ -130,8 +130,6 @@ def zip_exercises():
             zip_path = outdir + zip_name
             zip_folder(d, zip_path)
         print("Done zipping exercises.") 
-        
-zip_exercises()    
     
 # Use sphinx-quickstart to create your own conf.py file!
 # After that, you have to edit a few things.  See below.
@@ -412,7 +410,9 @@ def setup(app):
         }, True)
         app.add_transform(AutoStructify)
         app.add_javascript('js/jupman.js')
-        app.add_stylesheet('css/jupman.css')
+        app.add_stylesheet('css/jupman.css')        
+        zip_exercises()    
+
 
 
 

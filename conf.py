@@ -96,41 +96,41 @@ def zip_folder(folder, zip_path):
             if filename.find(i)!=-1:
                 return True
     
-    class ZipArchive:
+    folder = folder
+    parent_folder = folder[len(os.path.dirname(folder.strip('/')))+1:-1]
+    print("parent_folder = " + parent_folder)
+    print("folder = " + folder)
+    archive = zipfile.ZipFile(zip_path, "w")
+    for dirname, dirs, files in os.walk(folder):
+        print("dirname=" + dirname)
+        dirNamePrefix = dirname + "/*"
+        print("dirNamePrefix=" + dirNamePrefix)
+        filenames = glob.glob(dirNamePrefix)
+        print("filenames=" + str(filenames))
+        for filename in filenames:
+            if os.path.isfile(filename) and not ignored_file(filename) :
+                print('Zipping: %s' % filename)                    
+                name = parent_folder + '/' + filename[len(folder):]
+                archive.write(filename, name, zipfile.ZIP_DEFLATED)
 
-        def zip_it(self, dirName, files):
-            dirNamePrefix = dirName + "/*"
-            
-            for filename in glob.glob(dirNamePrefix):
-                if os.path.isfile(filename) and not ignored_file(filename) :
-                    print('Zipping: %s' % filename)                    
-                    name = self.parent_folder + '/' + filename[len(self.folder):]
-                    self.archive.write(filename, name, zipfile.ZIP_DEFLATED)
-
-        def run(self, folder, zip_path):
-            self.folder = folder
-            self.parent_folder = folder[len(os.path.dirname(self.folder.strip('/')))+1:-1]
-            self.archive = zipfile.ZipFile(zip_path, "w")
-            os.walk(self.folder, ZipArchive.zip_it, self)
-            self.archive.close()
+    archive.close()
         
-    zar = ZipArchive()
-    zar.run(folder, zip_path)
     print("Wrote " + zip_path)
             
 def zip_exercises():
     
-    exercises = glob.glob("exercises/*/")
+    exercises =  glob.glob("exercises/*/")
     if len(exercises) > 0:
         outdir = 'overlay/_static/'
         print("Found stuff in exercises/ , zipping them to " + outdir)
         for d in exercises:
             dir_name= d[len('exercises/'):].strip('/')
+            print("dir_name = " + dir_name)
             zip_name = dir_name + '-exercises.zip'
             zip_path = outdir + zip_name
             zip_folder(d, zip_path)
         print("Done zipping exercises.") 
-    
+
 # Use sphinx-quickstart to create your own conf.py file!
 # After that, you have to edit a few things.  See below.
 

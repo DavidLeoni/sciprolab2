@@ -98,18 +98,18 @@ def zip_folder(folder, zip_path):
     
     folder = folder
     parent_folder = folder[len(os.path.dirname(folder.strip('/')))+1:-1]
-    print("parent_folder = " + parent_folder)
-    print("folder = " + folder)
+    #print("parent_folder = " + parent_folder)
+    #print("folder = " + folder)
     archive = zipfile.ZipFile(zip_path, "w")
     for dirname, dirs, files in os.walk(folder):
-        print("dirname=" + dirname)
+        #print("dirname=" + dirname)
         dirNamePrefix = dirname + "/*"
-        print("dirNamePrefix=" + dirNamePrefix)
+        #print("dirNamePrefix=" + dirNamePrefix)
         filenames = glob.glob(dirNamePrefix)
-        print("filenames=" + str(filenames))
+        #print("filenames=" + str(filenames))
         for filename in filenames:
             if os.path.isfile(filename) and not ignored_file(filename) :
-                print('Zipping: %s' % filename)                    
+                #print('Zipping: %s' % filename)                    
                 name = parent_folder + '/' + filename[len(folder):]
                 archive.write(filename, name, zipfile.ZIP_DEFLATED)
 
@@ -125,12 +125,14 @@ def zip_exercises():
         print("Found stuff in exercises/ , zipping them to " + outdir)
         for d in exercises:
             dir_name= d[len('exercises/'):].strip('/')
-            print("dir_name = " + dir_name)
+            # print("dir_name = " + dir_name)
             zip_name = dir_name + '-exercises.zip'
             zip_path = outdir + zip_name
             zip_folder(d, zip_path)
         print("Done zipping exercises.") 
 
+#zip_exercises()        
+        
 # Use sphinx-quickstart to create your own conf.py file!
 # After that, you have to edit a few things.  See below.
 

@@ -11,7 +11,7 @@ import glob
 import os
 import inspect
 import zipfile
-import glob, os, sys
+import sys
 
 
 on_rtd = os.environ.get('READTHEDOCS') == 'True'

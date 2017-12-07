@@ -64,7 +64,146 @@ class StarGraphTest(DiGraphTest):
         self.assertDiGraphEqual(star_graph(4),
                                 dig(1, [2,3,4]))
         
+class OddLineTest(DiGraphTest):
+       
+    def test_odd_line_0(self):        
+        self.assertDiGraphEqual(odd_line(0), dig())
 
+    def test_odd_line_1(self):        
+        self.assertDiGraphEqual(odd_line(1), dig(1, []))
+
+    def test_odd_line_2(self):        
+        self.assertDiGraphEqual(odd_line(2), dig(1, [3]))
+
+
+    def test_odd_line_3(self):        
+        self.assertDiGraphEqual(odd_line(3), dig(1, [3],
+                                                 3, [5]))
+
+    def test_odd_line_4(self):        
+        self.assertDiGraphEqual(odd_line(4), dig(1, [3],
+                                                 3, [5],
+                                                 5, [7]))
+
+class EvenLineTest(DiGraphTest):
+        
+    def test_even_line_0(self):        
+        self.assertDiGraphEqual(even_line(0), dig())
+
+    def test_even_line_1(self):        
+        self.assertDiGraphEqual(even_line(1), dig(2, []))
+
+    def test_even_line_2(self):        
+        self.assertDiGraphEqual(even_line(2), dig(4, [2]))
+
+
+    def test_even_line_3(self):        
+        self.assertDiGraphEqual(even_line(3), dig(4, [2],
+                                                  6, [4]))
+
+    def test_even_line_4(self):        
+        self.assertDiGraphEqual(even_line(4), dig(4, [2],
+                                                 6, [4],
+                                                 8, [6]))
+
+class QuadsTest(DiGraphTest):
+    
+    
+    def test_quads_0(self):
+        
+        self.assertDiGraphEqual(quads(0), dig())
+
+
+    def test_quads_1(self):
+        
+        self.assertDiGraphEqual(quads(1), dig(1, [],
+                                              2, [1]))
+
+    
+    def test_quads_2(self):
+        
+        self.assertDiGraphEqual(quads(2), dig(1, [3],
+                                              2, [1],
+                                              3, [4],
+                                              4, [2]))
+
+    def test_quads_3(self):
+        
+        self.assertDiGraphEqual(quads(3), dig(1, [3],
+                                              2, [1],
+                                              3, [4, 5],
+                                              4, [2],
+                                              5, [],
+                                              6, [4, 5]))
+
+
+    def test_quads_4(self):
+        
+        self.assertDiGraphEqual(quads(4), dig(1, [3],
+                                              2, [1],
+                                              3, [4, 5],
+                                              4, [2],
+                                              5, [7],
+                                              6, [4, 5],
+                                              7, [8],
+                                              8, [6]))        
+
+class PieTest(DiGraphTest):        
+    
+    def test_pie_0(self):        
+        self.assertDiGraphEqual(pie(0), dig())
+
+    def test_pie_1(self):        
+        self.assertDiGraphEqual(pie(1), dig(0, [1],
+                                            1, [1]))
+
+    def test_pie_2(self):        
+        self.assertDiGraphEqual(pie(2), dig(0, [1,2],
+                                            1, [2],
+                                            2, [1]))
+
+    def test_pie_3(self):
+        self.assertDiGraphEqual(pie(3), dig(0, [1,2,3],
+                                            1, [2],
+                                            2, [3],
+                                            3, [1]))
+
+    def test_pie_4(self):
+        self.assertDiGraphEqual(pie(4), dig(0, [1,2,3,4],
+                                            1, [2],
+                                            2, [3],
+                                            3, [4],
+                                            4, [1]))
+
+class FluxTest(DiGraphTest):        
+
+    def test_flux_negative(self):
+        with self.assertRaises(ValueError):
+            flux(-1)
+        with self.assertRaises(ValueError):
+            flux(-2)
+    
+    def test_flux_zero(self):
+        self.assertDiGraphEqual(flux(0), dig(0, []))
+
+    def test_flux_one(self):        
+        self.assertDiGraphEqual(flux(1), dig(0, [1,2,3]))
+    
+    def test_flux_two(self):        
+        self.assertDiGraphEqual(flux(2), dig(0, [1,2,3],
+                                             1, [4],
+                                             2, [5],
+                                             3, [6]))
+
+    def test_flux_three(self):        
+        self.assertDiGraphEqual(flux(3), dig(0, [1,2,3],
+                                             1, [4],
+                                             2, [5],
+                                             3, [6],
+                                             4, [7],
+                                             5, [8],
+                                             6, [9]))
+        
         
 class TestRemoveVertex(DiGraphTest):
     
@@ -208,4 +347,3 @@ class DistancesTest(DiGraphTest):
                            'c': 1,
                            'd': 2})
 
-            

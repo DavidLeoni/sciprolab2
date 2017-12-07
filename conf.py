@@ -12,7 +12,7 @@ import os
 import inspect
 import zipfile
 import sys
-
+import shutil
 
 on_rtd = os.environ.get('READTHEDOCS') == 'True'
 
@@ -414,8 +414,14 @@ def setup(app):
         app.add_javascript('js/jupman.js')
         app.add_stylesheet('css/jupman.css')        
         zip_exercises()    
-
-
+                
+        # let's keep this specific to algolab for now: 
+        print('Copying root algolab.py to exercises subdirs ...')
+        subdirs = ['trees', 'graphs']
+        for subdir in subdirs: 
+            target = 'exercises/%s/algolab.py' % subdir
+            shutil.copyfile('algolab.py', target)        
+            print('Overwrote ' + target)
 
 
 exclude_patterns.extend(MANUALS[manual]['exclude_patterns'])

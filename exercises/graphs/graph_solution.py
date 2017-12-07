@@ -204,7 +204,7 @@ class DiGraph:
         
         max_len=0
         
-        sorted_verteces = sorted(self._edges.keys())
+        sorted_verteces = sorted(self._edges.keys(), key=str)
         
         for source in self._edges:
             max_len = max(max_len, len(str(source)))
@@ -531,5 +531,155 @@ def star_graph(n):
         g.add_edge(1, i)
     
     return g
-    
 
+    
+def odd_line(n):
+    """ Returns a DiGraph with n verteces, displaced like a line of odd numbers
+    
+        Each vertex is an odd number i, for  1 <= i < 2n. For example, for
+        n=4 verteces are displaced like this:
+                
+        1 -> 3 -> 5 -> 7
+        
+        For n = 0, return the empty graph
+            
+    """
+        
+    g = DiGraph()
+    
+    for i in range(1, n + 1):
+        g.add_vertex(2*i - 1)
+    
+    for i in range(1, n):
+        g.add_edge(2*i - 1, 2*i + 1)
+        
+    return g
+
+def even_line(n):
+    """ Returns a DiGraph with n verteces, displaced like a line of even numbers
+    
+        Each vertex is an even number i, for  2 <= i <= 2n. For example, for
+        n=4 verteces are displaced like this:
+                
+        2 <- 4 <- 6 <- 8
+        
+        For n = 0, return the empty graph
+            
+    """
+        
+    g = DiGraph()
+    
+    for i in range(1, n + 1):
+        g.add_vertex(2 * i)
+    
+    for i in range(1, n):        
+        g.add_edge(2 * (i + 1), 2 * i)
+
+    return g
+    
+def quads(n):
+    """ Returns a DiGraph with 2n verteces, displaced like a strip of quads.
+    
+        Each vertex is a number i,  1 <= i <= 2n. 
+        For example, for n = 4, verteces are displaced like this:
+                
+        1 -> 3 -> 5 -> 7
+        ^    |    ^    |
+        |    ;    |    ;
+        2 <- 4 <- 6 <- 8
+        
+        where 
+        
+          ^                                         |
+          |  represents an upward arrow,   while    ;  represents a downward arrow        
+    
+    """
+
+    g = DiGraph()
+    
+    for i in range(1, 2 * n + 1):
+        g.add_vertex(i)
+    
+    for i in range(1, n):
+        g.add_edge(2*i - 1, 2*i + 1)
+        g.add_edge(2 * (i+1), 2 * i)
+
+    for i in range(1, n + 1):
+        if i % 2 == 0:        
+            g.add_edge(2*i - 1, 2*i)
+        else:
+            g.add_edge(2*i, 2*i - 1)
+                        
+    return g
+
+def pie(n):
+    """ Returns a DiGraph with n+1 verteces, displaced like a polygon with a perimeter 
+        of n verteces progressively numbered from 1 to n. A central vertex numbered zero 
+        has outgoing edges to all other verteces.
+        
+        For n = 0, return the empty graph.
+        For n = 1, return vertex zero connected to node 1, and node 1 has a self-loop.
+        
+    """
+        
+    g = DiGraph()
+    
+    if n == 0:    
+        return g
+    
+    for i in range(0, n + 1):
+        g.add_vertex(i)
+            
+    for i in range(1, n + 1):
+        g.add_edge(0, i)
+
+    for i in range(1, n):
+        g.add_edge(i, i + 1)
+    
+    if n > 0:
+        g.add_edge(n, 1)
+        
+    return g
+        
+def flux(depth):
+    """ Returns a DiGraph with 1 + (d * 3) verteces displaced like a Y:
+        - from a central node numbered 0, three branches depart  
+        - all edges are directed outward
+        - on each branch there are 'depth' verteces. 
+        - if depth < 0, raises a ValueError
+                
+        For example, for depth=2 we get the following graph (suppose arrows point outward):
+        
+             4         5
+              \       /
+               1     2
+                \   /
+                  0
+                  |
+                  3
+                  |
+                  6
+        
+    """
+    
+    if depth < 0:
+        raise ValueError("Expected zero or positive depth, found instead %s " % depth)
+    
+    g = DiGraph()
+    
+    if depth == 0:
+        g.add_vertex(0)
+        return g
+    
+    for i in range(0, depth*3 + 1):
+        g.add_vertex(i)
+
+    for i in range(1, 4):
+        g.add_edge(0, i)
+            
+    j = 1
+    for lev in range(1, ((depth-1)*3) + 1):
+        g.add_edge(j, j + 3)
+        j += 1
+
+    return g 

@@ -1,6 +1,13 @@
 
-# Jupman
+Source code as Jupyter Python worksheets for algorithms lab of Scientific Programming course (QCB master, University of Trento)
 
-Jupyter Python 3 worksheets build system and exam manager, see manual at http://jupman.readthedocs.io
 
-Jupman uses [NbSphinx](http://nbsphinx.readthedocs.io/) and [ReadTheDocs](https://readthedocs.org). 
+For Students: 
+
+* Officiale course website is here  [sciprolab2.readthedocs.org](http://sciprolab2.readthedocs.org) 
+* In this repository you will find the pages for building the website, the only thing interesting to you
+should be the [exercises folder](exercises)
+
+
+
+For instructors: see [Jupman](http://jupman.readthedocs.io)

@@ -11,7 +11,6 @@ import unittest
 import sys
 
 
-
 def _get_generic_tree_def():
     """ Hack to get the damned GenericTree definition without explicitly importing the module. 
     """
@@ -237,10 +236,8 @@ def _get_digraph_def():
     """ Hack to get the damned DiGraph definition without excplicitly importing the module. 
     """
 
-    if 'graph' in sys.modules: 
-        return getattr(sys.modules['graph'], 'DiGraph')
-    elif 'graph_solution' in sys.modules: 
-        return getattr(sys.modules['graph_solution'], 'DiGraph')
+    if 'exercise3' in sys.modules: 
+        return getattr(sys.modules['exercise3'], 'DiGraph')
     else:
         raise Exception("Cannot find a module containing DiGraph definition !")        
 
@@ -248,10 +245,8 @@ def _get_visit_def():
     """ Hack to get the damned Visit definition without excplicitly importing the module. 
     """
 
-    if 'graph' in sys.modules: 
-        return getattr(sys.modules['graph'], 'Visit')
-    elif 'graph_solution' in sys.modules: 
-        return getattr(sys.modules['graph_solution'], 'Visit')
+    if 'exercise3' in sys.modules: 
+        return getattr(sys.modules['exercise3'], 'Visit')
     else:
         raise Exception("Cannot find a module containing Visit definition !")        
         
@@ -259,10 +254,8 @@ def _get_vertex_log_def():
     """ Hack to get the damned VertexLog definition without excplicitly importing the module. 
     """
 
-    if 'graph' in sys.modules: 
-        return getattr(sys.modules['graph'], 'VertexLog')
-    elif 'graph_solution' in sys.modules: 
-        return getattr(sys.modules['graph_solution'], 'VertexLog')
+    if 'exercise3' in sys.modules: 
+        return getattr(sys.modules['exercise3'], 'VertexLog')
     else:
         raise Exception("Cannot find a module containing VertexLog definition !")        
 

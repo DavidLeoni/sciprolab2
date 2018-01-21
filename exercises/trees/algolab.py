@@ -10,7 +10,6 @@
 import unittest
 import sys
 
-import networkx as nx
 
 
 def _get_generic_tree_def():
@@ -656,6 +655,7 @@ class VisitTest(unittest.TestCase):
         
 
 def show_distances():
+    import networkx as nx
     ret = nx.DiGraph()
     ret.graph['dpi'] = 80
     ret.add_nodes_from(['a  0','b  1', 'c  1', 'd  2', 'e  3', 'f  -1', 'g  -1'])
@@ -666,6 +666,8 @@ def show_distances():
     
 def to_nx(algolab_digraph):
     """ Convert an Algolab DiGraph into a NetworkX graph and return it. """
+    import networkx as nx
+
     ret = nx.DiGraph()
     ret.graph['dpi'] = 80
     ret.add_nodes_from(algolab_digraph.verteces())
@@ -676,5 +678,6 @@ def to_nx(algolab_digraph):
     
 # the draw here does not work ....     
 #def draw_digraph(algolab_digraph):
+# import networkx as nx
 #   nxg = to_networkx(algolab_digraph)
     # nxpd.draw(ret, show='ipynb')

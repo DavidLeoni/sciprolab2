@@ -39,7 +39,9 @@ class GenericTree:
         
     def children(self):
         """ Returns the children as a Python list
-            NOTE: this function return the *nodes*, not the data.  
+            NOTE 1: this method return the *nodes*, not the data.  
+            NOTE 2: This method is O(n) where n is the number of children, 
+                    DO NOT abuse it for i.e. only getting easily first or second child !
         """
         
         ret = []

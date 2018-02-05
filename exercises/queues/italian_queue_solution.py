@@ -25,7 +25,7 @@ class Node:
         self._next = newnext
 
 class ItalianQueue:
-    """ An Italian circular queue, v1.  
+    """ An Italian queue, v1.  
     
         - Implemented as a LinkedList
         - Worst case enqueue is O(n)

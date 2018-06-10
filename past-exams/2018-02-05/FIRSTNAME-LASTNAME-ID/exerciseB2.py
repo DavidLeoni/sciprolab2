@@ -55,17 +55,17 @@ class LinkedQueue:
 
         q.deqn(3)
 
-        Returns ['d', 'e', 'f'] and queue becomes:
+        Returns ['a', 'b', 'c'] and queue becomes:
 
           _head         _tail
-              a -> b -> c
+              d -> e -> f
 
         q.deqn(1)
 
-        Returns ['c'] and queue becomes:
+        Returns ['d'] and queue becomes:
 
           _head    _tail
-              a -> b
+              e -> f
 
         q.deqn(5)
 

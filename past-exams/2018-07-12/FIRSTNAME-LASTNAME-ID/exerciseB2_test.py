@@ -126,7 +126,8 @@ class EnqueueTest(unittest.TestCase):
     def test_03_already_existing_client(self):
         m = Mall(
                 [
-                    'x',['a']
+                    'x',['a'],
+                    'y',[]
                 ],
                 [
                     'a',['x']
@@ -134,7 +135,7 @@ class EnqueueTest(unittest.TestCase):
             )
         
         with self.assertRaises(ValueError):
-           m.enqueue(Client('a',[]))
+           m.enqueue(Client('a',['y']))
 
     def test_04_empty(self):
         m = Mall(

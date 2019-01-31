@@ -1,0 +1,14 @@
+
+
+{% block breadcrumbs %}
+      <li> <h2 style="background-color:red; color:yellow">WARNING! THIS VERSION IS OLD !  <br/>
+    <a style=" text-decoration: underline;" href="https://datasciprolab.readthedocs.io/en/latest">GO TO DATA SCIENCE LATEST VERSION (by David Leoni) </a><br/>
+    <a style=" text-decoration: underline;" href="https://qcbsciprolab.readthedocs.io/en/latest">GO TO QCB LATEST VERSION  (by Luca Bianco)</a></li> <br/>
+
+ </h2></li>
+      <li><a href="{{ pathto(master_doc) }}">{{ _('Docs') }}</a> &raquo;</li>
+        {% for doc in parents %}
+          <li><a href="{{ doc.link|e }}">{{ doc.title }}</a> &raquo;</li>
+        {% endfor %}
+      <li>{{ title }}</li>
+{% endblock %}
